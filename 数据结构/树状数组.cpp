@@ -1,24 +1,25 @@
+const int MAXN=1e5+5;
+template<typename Tp>
 struct Bit
 {
-    vector<int> a;
+    Tp bit[MAXN];
     int sz;
     void init(int n)
     {
         sz=n;
-        for(int i=1;i<=n+5;i++)
-            a.push_back(0);
+        memset(bit,0,sizeof(bit))
     }
     int lowbit(int x)
     {
         return x&(-x);
     }
-    int query(int x)
+    Tp query(int x)
     {
-        int ans=0;
+        Tp ans=0;
         for(;x;x-=lowbit(x))ans+=a[x];
         return ans;
     }
-    void update(int x,int v)
+    void update(int x,Tp v)
     {
         for(;x<=sz;x+=lowbit(x))
             a[x]+=v;

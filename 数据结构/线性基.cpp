@@ -1,14 +1,15 @@
 const int MAXL=50;//位数
 typedef long long ll;
+template<typename Tp>
 struct LinearBasis
 {
-	ll v[MAXL+1];
+	Tp v[MAXL+1];
 	int sz,n;
 	LinearBasis()
 	{
 		memset(v,0,sizeof(v));
 	}
-	void add(ll x)
+	void add(Tp x)
 	{
 		for(int i=MAXL;i>=0;i--)
 		{
@@ -23,7 +24,7 @@ struct LinearBasis
 			}
 		}
 	}
-	ll queryMax()
+	Tp queryMax()
 	{
 		ll x=0;
 		for(int i=MAXL;i>=0;i--)
@@ -43,13 +44,13 @@ struct LinearBasis
 			if(v[i])
 				v[sz++]=v[i];
 	}
-	ll query(ll k)
+	Tp query(ll k)
 	{
 		if(sz!=n)
 			k--;
 		if(k>(1ll<<sz)-1)
 			return -1;
-		ll ans=0;
+		Tp ans=0;
 		for(int i=0;i<=MAXL;i++)
 			if(k&(1LL<<i))
 				ans^=v[i];

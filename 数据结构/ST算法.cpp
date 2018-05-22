@@ -7,13 +7,14 @@ F[i,2]即4个元素的最值，以此类推更新所有长度的最值。
 因为这个区间的长度为j - i + 1,所以我们可以取k=log2( j - i + 1)，则有：RMQ(A, i, j)=max{F[i , k], F[ j - 2 ^ k + 1, k]}。
 举例说明，要求区间[2，8]的最大值，k = log2（8 - 2 + 1）= 2，即求max(F[2, 2]，F[8 - 2 ^ 2 + 1, 2]) = max(F[2, 2]，F[5, 2])；
 */ 
+const int MAXN=1e5+5;
+template<typename Tp>
 struct RMQ
 {
-    const static int RMQ_size=MAXN;
     int n;
-    int len[RMQ_size];
-    int mx[RMQ_size][21];
-    int mi[RMQ_size][21];
+    int len[MAXN];
+    Tp mx[MAXN][21];
+    Tp mi[MAXN][21];
     void build_rmq()
     {
         for(int j=1;(1<<j)<=n;j++)
@@ -33,7 +34,7 @@ struct RMQ
         int k=len[R-L+1];
         return min(mi[L][k],mi[R-(1<<k)+1][k]);
     }
-    void init(int *a,int sz)
+    void init(Tp *a,int sz)
     {
         n=sz;
         for(int i=1;i<=n;i++) 
