@@ -1,0 +1,17 @@
+int dfs(int i,int s,bool e)
+{
+    if(i==-1)
+		return s==target_s;
+    if(!e&&~f[i][s])
+		return f[i][s];
+    int res=0;
+    int u=e?num[i]:9;
+    for(int d=first?1:0;d<=u;++d)
+        res+=dfs(i-1,new_s(s,d),e&&d==u);
+    return e?res:f[i][s]=res;
+}
+
+f为记忆化数组；
+i为当前处理串的第i位（权重表示法，也即后面剩下i+1位待填数）；
+s为之前数字的状态（如果要求后面的数满足什么状态，也可以再记一个目标状态t之类，for的时候枚举下t）；
+e表示之前的数是否是上界的前缀（即后面的数能否任意填）。
