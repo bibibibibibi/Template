@@ -64,7 +64,7 @@ namespace MCMF
 			return true;
 	}
 	//返回的是最大流，cost存的是最小费用 
-	int minCostMaxflow(int s,int t,int &cost)
+	int mcmf(int s,int t,int &cost)
 	{
 		int flow=0;
 		cost=0;

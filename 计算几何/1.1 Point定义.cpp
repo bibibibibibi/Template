@@ -1,4 +1,4 @@
-//1.1 Point¶¨Òå 
+//1.1 Pointå®šä¹‰
 const double eps=1e-8; 
 const double PI=acos(-1.0); 
 int sgn(double x) 
@@ -11,23 +11,20 @@ struct Point
 {
 	double x,y;
 	Point(){}
-	Point(double _x,double _y)
-	{
-		x=_x;y=_y;
-	}
+	Point(double _x,double _y):x(_x),y(_y){}
 	Point operator - (const Point &b)const
 	{
 		return Point(x-b.x,y-b.y); 
 	}
-	double operator ^ (const Point &b)const//²æ»ı
+	double operator ^ (const Point &b)const//å¤–ç§¯
 	{
 		return x*b.y-y*b.x;
 	}
-	double operator * (const Point &b)const//µã»ı
+	double operator * (const Point &b)const//å†…ç§¯
 	{
 		return x*b.x+y*b.y;
 	}
-	void transXY(double B)//ÈÆÔ­µãĞı×ª½Ç¶ÈB£¨»¡¶ÈÖµ£©£¬ºóx,yµÄ±ä»¯ 
+	void transXY(double B)//ç»•åŸç‚¹æ—‹è½¬è§’åº¦Bï¼ˆå¼§åº¦å€¼ï¼‰ï¼Œåx,yçš„å˜åŒ–
 	{
 		double tx=x,ty=y;
 		x=tx*cos(B)-ty*sin(B);

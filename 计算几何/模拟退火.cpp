@@ -96,3 +96,66 @@ int main()
 	}
 	return 0;
 }
+
+
+//最小球覆盖
+#include<bits/stdc++.h>
+using namespace std;
+namespace SA
+{
+	const double EPS=1e-8;
+	const double PI=acos(-1.0);
+	int n;
+	double Delta,ans;
+	struct Point
+	{
+		double x,y,z;
+	}P[55];
+	struct Solution
+	{
+		double x,y,z;
+	}S;
+	double Dis(double x1,double y1,double z1,double x2,double y2,double z2)
+	{
+		return sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)+(z1-z2)*(z1-z2));
+	}
+	void Trans()
+	{
+		int id=1;
+		double mx=0;
+		for(int k=1;k<=n;k++)
+		{
+			double dis=Dis(S.x,S.y,S.z,P[k].x,P[k].y,P[k].z);
+			if(dis>mx) mx=dis,id=k;
+		}
+		//每次向半径最大的方向移动
+		S.x=S.x+(P[id].x-S.x)/mx*Delta;
+		S.y=S.y+(P[id].y-S.y)/mx*Delta;
+		S.z=S.z+(P[id].z-S.z)/mx*Delta;
+		ans=min(ans,mx);
+	}
+	void solve()
+	{
+		for(int i=1;i<=n;i++)
+		{
+			scanf("%lf%lf%lf",&P[i].x,&P[i].y,&P[i].z);
+		}
+		S.x=S.y=S.z=0;
+		Delta=100;ans=1e10;
+		while(Delta>EPS)
+		{
+			Trans();
+			Delta=Delta*0.98;//0.95 0.9
+		}
+		printf("%.5lf\n",ans);
+	}
+}
+int main()
+{
+	while(scanf("%d",&SA::n)==1&&SA::n)
+	{
+		SA::solve();
+	}
+	return 0;
+}
+ 

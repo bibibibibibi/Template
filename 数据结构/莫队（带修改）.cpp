@@ -67,6 +67,7 @@ namespace MO
     }
 }
 //bzoj2453
+//区间中有多少个不同的颜色，带修改
 using namespace MO;
 char op[2];
 int main()

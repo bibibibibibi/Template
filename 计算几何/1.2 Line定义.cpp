@@ -1,23 +1,20 @@
-//1.2 Line¶¨Òå 
+//1.2 Lineå®šä¹‰
 struct Line
 {
 	Point s,e;
 	Line(){}
-	Line(Point _s,Point _e)
-	{
-		s = _s;e = _e;
-	}
-	//Á½Ö±ÏßÏà½»Çó½»µã 
-	//µÚÒ»¸öÖµÎª0±íÊ¾Ö±ÏßÖØºÏ£¬Îª1±íÊ¾Æ½ĞĞ, Îª2ÊÇÏà½» 
-	//Ö»ÓĞµÚÒ»¸öÖµÎª2Ê±£¬½»µã²ÅÓĞÒâÒå 
+	Line(Point _s,Point _e):s(_s),e(_e){}
+    //ä¸¤ç›´çº¿ç›¸äº¤æ±‚äº¤ç‚¹
+    //ç¬¬ä¸€ä¸ªå€¼ä¸º0è¡¨ç¤ºç›´çº¿é‡åˆï¼Œä¸º1è¡¨ç¤ºå¹³è¡Œï¼Œä¸º0è¡¨ç¤ºç›¸äº¤,ä¸º2æ˜¯ç›¸äº¤
+    //åªæœ‰ç¬¬ä¸€ä¸ªå€¼ä¸º2æ—¶ï¼Œäº¤ç‚¹æ‰æœ‰æ„ä¹‰
     pair<int,Point> operator &(const Line &b)const 
     { 
         Point res=s; 
-        if(sgn((s-e)^(b.s-b.e)) == 0) 
+        if(sgn((s-e)^(b.s-b.e))==0) 
         { 
-            if(sgn((s-b.e)^(b.s-b.e)) == 0) 
-                return make_pair(0,res);//ÖØºÏ 
-            else return make_pair(1,res);//Æ½ĞĞ 
+            if(sgn((s-b.e)^(b.s-b.e))==0)
+                return make_pair(0,res);//é‡åˆ
+            else return make_pair(1,res);//å¹³è¡Œ 
         } 
         double t=((s-b.s)^(b.s-b.e))/((s-e)^(b.s-b.e)); 
         res.x+=(e.x-s.x)*t; 

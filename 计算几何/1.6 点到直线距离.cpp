@@ -8,4 +8,4 @@ Point PointToLine(Point P,Line L)
     result.x=L.s.x+(L.e.x-L.s.x)*t; 
     result.y=L.s.y+(L.e.y-L.s.y)*t; 
     return result; 
-} 
+}

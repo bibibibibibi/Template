@@ -4,6 +4,7 @@
 #include<string.h>
 #include<queue>
 using namespace std;
+const int MAXN=5e5+5;
 struct Trie
 {
 	int next[MAXN][26],fail[MAXN],end[MAXN];
@@ -97,7 +98,7 @@ int main()
 	{
 		scanf("%d",&n);
 		ac.init();
-		for(int i = 0;i < n;i++)
+		for(int i=0;i<n;i++)
 		{
 			scanf("%s",buf);
 			ac.insert(buf);

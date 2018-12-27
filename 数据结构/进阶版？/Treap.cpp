@@ -1,8 +1,10 @@
+template<typename Tp>
 struct Treap
 {
 	struct data
 	{
-		int l,r,v,size,rnd,w;
+		int l,r,size,rnd;
+		Tp w,v;
 	}tr[100005];
 	int n,size,root,ans;
 	void update(int k)//更新结点信息
@@ -78,7 +80,7 @@ struct Treap
 		else
 			return query_rank(tr[k].l,x);
 	}
-	int query_num(int k,int x)//排名为x的数
+	Tp query_num(int k,int x)//排名为x的数
 	{
 	    if(k==0)
 	    	return 0;

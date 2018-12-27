@@ -1,149 +1,273 @@
-const int MAXN=50010;
-struct Edge
+#include<bits/stdc++.h>
+namespace Tree_chain
 {
-	int to,next; 
-}edge[MAXN*2]; 
-int head[MAXN],tot; 
-int top[MAXN];//top[v] 表示v所在的重链的顶端节点 
-int fa[MAXN];//父亲节点 
-int deep[MAXN];//深度 
-int num[MAXN];//num[v] 表示以v为根的子树的节点数 
-int p[MAXN];//p[v]表示v对应的位置 
-int fp[MAXN];//fp和p数组相反 
-int son[MAXN];//重儿子 
-int pos;
-void init()
-{
-	tot=0;
-	memset(head,-1,sizeof(head));
-	pos=1;//使用树状数组，编号从头1开始 
-	memset(son,-1,sizeof(son));
-}
-void addedge(int u,int v)
-{
-	edge[tot].to=v;edge[tot].next=head[u];head[u]=tot++;
-}
-void dfs1(int u,int pre,int d)
-{
-	deep[u]=d;
-	fa[u]=pre;
-	num[u]=1;
-	for(int i=head[u];i!=-1;i=edge[i].next)
+	typedef long long ll;
+	const int MAXN=1e5+5;
+	int cnt,tot;
+	struct Edge
 	{
-		int v=edge[i].to;
-		if(v!=pre)
+		int v,nxt;
+	}E[MAXN*2];
+	int head[MAXN];
+	inline void addedge(int u,int v) 
+	{
+		E[tot].v=v;E[tot].nxt=head[u];head[u]=tot++;
+		E[tot].v=u;E[tot].nxt=head[v];head[v]=tot++;
+	}
+	ll sumv[MAXN<<2],addv[MAXN<<2];
+	ll plc[MAXN<<2];
+	void pushup(int o) 
+	{
+		sumv[o]=sumv[o<<1]+sumv[o<<1|1];
+	}
+	void paint(int o,int L,int R,ll v)
+	{
+		sumv[o]+=(ll(R-L+1))*v;
+		addv[o]+=v;
+	}
+	void pushdown(int o,int L,int R)
+	{
+		if(addv[o]!=0LL) 
 		{
-			dfs1(v,u,d+1);
-			num[u]+=num[v];
-			if(son[u]==-1||num[v]>num[son[u]])
-				son[u]=v;
+			int M=(L+R)>>1;
+			paint(o<<1,L,M,addv[o]);
+			paint(o<<1|1,M+1,R,addv[o]);
+			addv[o]=0;
 		}
 	}
-}
-void getpos(int u,int sp)
-{
-	top[u]=sp;
-	p[u]=pos++;
-	fp[p[u]]=u;
-	if(son[u]==-1) return;
-	getpos(son[u],sp);
-	for(int i=head[u];i!=-1;i=edge[i].next)
+	void build_tree(int o,int L,int R)
 	{
-		int v=edge[i].to;
-		if(v!=son[u]&&v!=fa[u])
-			getpos(v,v);
-	}
-}
-//树状数组 
-int lowbit(int x)
-{
-	return x&(-x);
-}
-int c[MAXN];
-int n;
-int sum(int i)
-{
-	int s=0;
-	while(i>0)
-	{
-		s+=c[i];
-		i-=lowbit(i);
-	}
-	return s;
-}
-void add(int i,int val)
-{
-	while(i<=n)
-	{
-		c[i]+=val;
-		i+=lowbit(i);
-	}
-}
-void Change(int u,int v,int val)//u->v的路径上点的值改变val 
-{
-	int f1=top[u],f2=top[v];
-	int tmp=0;
-	while(f1!=f2)
-	{
-		if(deep[f1]<deep[f2])
+		if(L==R)
+			sumv[o]=plc[L];
+		else 
 		{
-			swap(f1,f2);
-			swap(u,v);
+			int M=(L+R)>>1;
+			build_tree(o<<1,L,M);
+			build_tree(o<<1|1,M+1,R);
+			pushup(o);
 		}
-		add(p[f1],val);
-		add(p[u]+1,-val);
-		u=fa[f1];
-		f1=top[u];
 	}
-	if(deep[u]>deep[v])
-		swap(u,v);
-	add(p[u],val);
-	add(p[v]+1,-val);
-}
-int a[MAXN];
-int main()
-{
-	int M,P;
-	while(scanf("%d%d%d",&n,&M,&P)==3)
+	ll query(int o,int L,int R,int ql,int qr) 
 	{
-		int u,v;
-		int C1,C2,K;
-		char op[10];
-		init();
-		for(int i=1;i<=n;i++)
+		if(ql<=L&&R<=qr)
+			return sumv[o];
+		else 
 		{
-			scanf("%d",&a[i]);
+			int M=(L+R)>>1;
+			pushdown(o,L,R);
+			ll ans=0;
+			if(ql<=M) ans+=query(o<<1,L,M,ql,qr);
+			if(qr>M) ans+=query(o<<1|1,M+1,R,ql,qr);
+			return ans;
 		}
-		while(M--)
+	}
+	void update(int o,int L,int R,int ql,int qr,ll v) 
+	{
+		if(ql<=L&&R<=qr)
+			paint(o,L,R,v);
+		else 
 		{
-			scanf("%d%d",&u,&v);
-			addedge(u,v);
-			addedge(v,u);
+			int M=(L+R)>>1;
+			pushdown(o,L,R);
+			if(ql<=M) update(o<<1,L,M,ql,qr,v);
+			if(qr>M) update(o<<1|1,M+1,R,ql,qr,v);
+			pushup(o);
 		}
-		dfs1(1,0,0);
-		getpos(1,1);
-		memset(c,0,sizeof(c));
-		for(int i=1;i<=n;i++)
+	}
+
+	int anc[MAXN][19];
+	int siz[MAXN],dep[MAXN],hson[MAXN];
+	void dfs_1(int x,int fa=-1,int depth=0) 
+	{
+		siz[x]=1;dep[x]=depth;anc[x][0]=fa;
+		int max_siz=0;
+		for(int i=head[x];~i;i=E[i].nxt)
 		{
-			add(p[i],a[i]);
-			add(p[i]+1,-a[i]);
-		}
-		while(P--)
-		{
-			scanf("%s",op);
-			if(op[0]=='Q')
+			int v=E[i].v;
+			if(v!=fa) 
 			{
-				scanf("%d",&u);
-				printf("%d\n",sum(p[u]));
+				dfs_1(v,x,depth+1);
+				siz[x]+=siz[v];
+				if(siz[v]>max_siz) 
+				{
+					max_siz=siz[v];hson[x]=v;
+				}
+			}
+		}
+	}
+	int top[MAXN],tid[MAXN],dfn[MAXN];ll A[MAXN];
+	void dfs_2(int x,int a=1)
+	{
+		cnt++;
+		dfn[x]=cnt;tid[cnt]=x;plc[cnt]=A[x];top[x]=a;
+		if(hson[x]) dfs_2(hson[x],a);
+		else return;
+		for(int i=head[x];~i;i=E[i].nxt)
+		{
+			int v=E[i].v;
+			if(v!=anc[x][0]&&v!=hson[x]) 
+				dfs_2(v,v);
+		}
+	}
+	int n;
+	void process() 
+	{
+		memset(anc,-1,sizeof(anc));
+		dfs_1(1);dfs_2(1);build_tree(1,1,n);
+		for(int j=1;(1<<j)<n;j++) 
+		{
+			for(int i=1;i<=n;i++) 
+			{
+				int a=anc[i][j-1];
+				if(a!=-1) anc[i][j]=anc[a][j-1];
+			}
+		}
+	}
+	int get_up(int v,int u)
+	{
+		for(int j=18;j>=0;j--) 
+		{
+			int a=anc[u][j];
+			if(a!=-1&&dep[a]>dep[v]) u=a;
+		}
+		return u;
+	}
+	bool is_anc(int v,int u) 
+	{
+		for(int j=18;j>=0;j--) 
+		{
+			int a=anc[u][j];
+			if(a!=-1&&dep[a]>=dep[v]) u=a;
+		}
+		return (u==v);
+	}
+	int now_rt;
+	ll query_tree(int x) 
+	{
+		if(x==now_rt)
+			return query(1,1,n,1,n);
+		else 
+		{
+			if(is_anc(x,now_rt)) 
+			{
+				int g=get_up(x,now_rt);
+				return query(1,1,n,1,n)-query(1,1,n,dfn[g],dfn[g]+siz[g]-1);
 			}
 			else
 			{
-				scanf("%d%d%d",&C1,&C2,&K);
-				if(op[0]=='D')
-					K=-K;
-				Change(C1,C2,K);
+				return query(1,1,n,dfn[x],dfn[x]+siz[x]-1);
 			}
 		}
 	}
-    return 0;
+	void update_tree(int x,ll v)
+	{
+		if(x==now_rt)
+			update(1,1,n,1,n,v);
+		else 
+		{
+			if(is_anc(x,now_rt))
+			{
+				int g=get_up(x,now_rt);
+				update(1,1,n,1,n,v);
+				update(1,1,n,dfn[g],dfn[g]+siz[g]-1,-v);
+			} 
+			else 
+			{
+				update(1,1,n,dfn[x],dfn[x]+siz[x]-1,v);
+			}
+		}
+	}
+	ll query_chain(int u,int v)
+	{
+		if(top[u]==top[v]) 
+		{
+			int l=dfn[u],r=dfn[v];
+			if(l>r) std::swap(l, r);
+			return query(1,1,n,l,r);
+		}
+		if(dep[top[u]]<dep[top[v]]) std::swap(u,v);
+		return query(1,1,n,dfn[top[u]],dfn[u])+query_chain(anc[top[u]][0],v);
+	}
+	void update_chain(int u,int v,ll delta)
+	{
+		if(top[u]==top[v]) 
+		{
+			int l=dfn[u],r=dfn[v];
+			if(l>r) std::swap(l,r);
+			update(1,1,n,l,r,delta);
+			return;
+		}
+		if(dep[top[u]]<dep[top[v]]) std::swap(u,v);
+		update(1,1,n,dfn[top[u]],dfn[u],delta);
+	 	update_chain(anc[top[u]][0],v,delta);
+	}
+	void init()
+	{
+		cnt=tot=0;now_rt=1;
+		memset(head,-1,sizeof(head));
+	}
+}
+using namespace Tree_chain;
+
+/*
+换根：将一个指定的节点设置为树的新根。
+修改路径权值：给定两个节点，将这两个节点间路径上的所有节点权值（含这两个节点）增加一个给定的值。
+修改子树权值：给定一个节点，将以该节点为根的子树内的所有节点权值增加一个给定的值。
+询问路径：询问某条路径上节点的权值和。
+询问子树：询问某个子树内节点的权值和。
+
+若类型为 1，则接下来一个整数 u，表示新根的编号。
+若类型为 2，则接下来三个整数 u,v,k，分别表示路径两端的节点编号以及增加的权值。
+若类型为 3，则接下来两个整数 u,k，分别表示子树根节点编号以及增加的权值。
+若类型为 4，则接下来两个整数 u,v，表示路径两端的节点编号。
+若类型为 5，则接下来一个整数 u，表示子树根节点编号。
+*/
+
+int main() 
+{
+	init();
+	scanf("%d",&n);
+	for(int i=1;i<=n;i++)
+		scanf("%lld", &A[i]);
+	for(int i=2;i<=n;i++)
+	{
+		int f;
+		scanf("%d",&f);
+		addedge(i,f);
+	}
+	process();
+	int q;
+	scanf("%d",&q);
+	while(q--) 
+	{
+		int op,u;
+		scanf("%d%d",&op,&u);
+		if(op==1) 
+		{
+			now_rt=u;
+		} 
+		else if(op==2)
+		{
+			int v;ll k;
+			scanf("%d%lld",&v,&k);
+			update_chain(u,v,k);
+		} 
+		else if(op==4)
+		{
+			int v;
+			scanf("%d",&v);
+			printf("%lld\n",query_chain(u,v));
+		}
+		else if(op==3)
+		{
+			ll k;
+			scanf("%lld",&k);
+			update_tree(u,k);
+		} 
+		else if(op==5)
+		{
+			printf("%lld\n",query_tree(u));
+		}
+	}
+	return 0;
 }

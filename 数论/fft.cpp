@@ -90,7 +90,7 @@ namespace fft
         //«ÛDFT
         fft(x1,len,1);
         fft(x2,len,1);
-        for(int i = 0;i<len;i++)
+        for(int i=0;i<len;i++)
             x1[i]=x1[i]*x2[i];
         fft(x1,len,-1);
         for(int i=0;i<len;i++)

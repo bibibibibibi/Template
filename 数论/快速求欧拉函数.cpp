@@ -11,7 +11,7 @@ void init()
 				phi[j]=(phi[j]/i)*(i-1); //j有因子i,而且i是素数,正是欧拉函数
 }
 
-ll pri(ll n)
+ll phi(ll n)
 {
 	ll ret=n;
 	for(ll i=2;i*i<=n;i++)

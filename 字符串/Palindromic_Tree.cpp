@@ -1,12 +1,12 @@
 const int MAXN=100005;
 const int CHAR=26;
 
-namespace Palindromic_Tree 
+struct Palindromic_Tree 
 {
 	int next[MAXN][CHAR];//next指针，next指针和字典树类似，指向的串为当前串两端加上同一个字符构成
 	int fail[MAXN];//fail指针，失配后跳转到fail指针指向的节点
-	int cnt[MAXN];
-	int num[MAXN];
+	int cnt[MAXN];//表示节点i的串在整个串中出现的数目（建树时求出的不是完全的，最后count()函数跑一遍以后才是正确的）
+	int num[MAXN];//表示以节点i内包含的的本质不中的回文串个数（包括自己）。
 	int len[MAXN];//len[i]表示节点i表示的回文串的长度
 	int S[MAXN];//存放添加的字符
 	int last;//指向上一个字符所在的节点，方便下一次add
@@ -56,5 +56,6 @@ namespace Palindromic_Tree
 	{
 		for(int i=p-1;i>=0;i--) cnt[fail[i]]+=cnt[i];
 		//父亲累加儿子的cnt，因为如果fail[v]=u，则u一定是v的子回文串！
+		cnt[0]=cnt[1]=0;//将两个根清零
 	}
-}
+};

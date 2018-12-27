@@ -107,12 +107,12 @@ struct Treap
         root=Merge(Merge(x.xx,ret),y.yy);
         return tr[ret].key;
     }
-    //询问一个数是第几大 
+    //询问有多少数比v小，如果是排名则要+1
     int Getkth(int x,int v)
     {
         if(!x)
             return 0;
-        return v<tr[x].key?Getkth(tr[x].l,v):Getkth(tr[x].r,v)+Size(tr[x].l)+1;
+        return v<=tr[x].key?Getkth(tr[x].l,v):Getkth(tr[x].r,v)+Size(tr[x].l)+1;
     }
     //插入操作 
     void Insert(int v)

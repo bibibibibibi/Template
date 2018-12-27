@@ -42,7 +42,7 @@ bool same(int x,int y)
 namespace DSU
 {
     int fa[MAXN];
-    void Init(int n)
+    void init(int n)
     {
         for(int i=1;i<=n;i++)fa[i]=i;
     }

@@ -58,7 +58,7 @@ namespace NTT
     void cal(ll x1[],ll x2[],ll tot)
     {
         int len=1;
-        while(len<tot)len<<=1;  
+        while(len<tot)len<<=1;
         ntt(x1,len,1);
         ntt(x2,len,1);
         for(int i=0;i<len;i++)

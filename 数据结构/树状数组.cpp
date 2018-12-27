@@ -2,12 +2,12 @@ const int MAXN=1e5+5;
 template<typename Tp>
 struct Bit
 {
-    Tp bit[MAXN];
+    Tp a[MAXN];
     int sz;
     void init(int n)
     {
         sz=n;
-        memset(bit,0,sizeof(bit))
+        memset(a,0,sizeof(a));
     }
     int lowbit(int x)
     {
@@ -24,4 +24,4 @@ struct Bit
         for(;x<=sz;x+=lowbit(x))
             a[x]+=v;
     }
-}bit;
+};
