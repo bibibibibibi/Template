@@ -21,7 +21,7 @@ void Manacher(char s[],int len)
 	for(int i=1;i<l;i++)
 	{
 		Mp[i]=mx>i?min(Mp[2*id-i],mx-i):1; 
-		while(Ma[i+Mp[i]]==Ma[i-Mp[i]])Mp[i]++;
+		while(i-Mp[i]>0&&Ma[i+Mp[i]]==Ma[i-Mp[i]])Mp[i]++;
 		if(i+Mp[i]>mx)
 		{
 			mx=i+Mp[i];
