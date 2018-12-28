@@ -1,10 +1,10 @@
 /* 
  * Kruskal算法求MST 
  */ 
-namespace Kruskal
+namespace MST
 {
-	const int MAXN=110;//最大点数 
-	const int MAXM=10000;//最大边数 
+	const int MAXN=1e5+5;//最大点数 
+	const int MAXM=1e5+5;//最大边数 
 	int F[MAXN];//并查集使用 
 	struct Edge
 	{
