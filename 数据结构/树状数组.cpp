@@ -1,6 +1,6 @@
 const int MAXN=1e5+5;
 template<typename Tp>
-struct Bit
+struct BIT
 {
     Tp a[MAXN];
     int sz;
@@ -9,7 +9,7 @@ struct Bit
         sz=n;
         memset(a,0,sizeof(a));
     }
-    int lowbit(int x)
+    inline int lowbit(int x)
     {
         return x&(-x);
     }

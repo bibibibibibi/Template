@@ -1,7 +1,7 @@
 ll fac[MAXN],inv[MAXN];
 ll qpow(ll a,ll b)
 {
-	ll ret=1;a%=MOD;
+    ll ret=1;a%=MOD;
     for(ll i=b;i;i>>=1,a=a*a%MOD)
         if(i&1) ret=ret*a%MOD;
     return ret;
@@ -14,9 +14,9 @@ ll C(ll n,ll m)
 }
 void init()
 {
-	fac[0]=1;
-	for(int i=1;i<MAXN;i++)//阶乘打表 
-	    fac[i]=fac[i-1]*i%MOD;
+    fac[0]=1;
+    for(int i=1;i<MAXN;i++)//阶乘打表 
+        fac[i]=fac[i-1]*i%MOD;
     inv[0]=1;inv[MAXN-1]=qpow(fac[MAXN-1],MOD-2);//费马小定理求逆元 
     for(int i=MAXN-2;i>=1;i--)
         inv[i]=inv[i+1]*(i+1)%MOD;
@@ -42,7 +42,6 @@ void init()
 //求逆元
 ll _inv(int x)
 {
-    if(x==1)
-        return 1;
+    if(x==1) return 1;
     return 1LL*(MOD-MOD/x)*_inv(MOD%x)%MOD;
 }
