@@ -40,7 +40,7 @@ namespace DINIC
 				{
 					dis[E[i].v]=dis[x]+1;
 					if(E[i].v==T)
-                    	return true;
+						return true;
 					q.push(E[i].v);
 				}
 			}
@@ -61,7 +61,7 @@ namespace DINIC
 				if(flow)
 				{
 					ret+=flow;
-            		maxflow-=flow;
+					maxflow-=flow;
 					E[i].cap-=flow;//正向边流量降低
 					E[i^1].cap+=flow; //反向边流量增加
 				}
