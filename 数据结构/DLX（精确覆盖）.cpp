@@ -58,7 +58,7 @@ struct DLX
                 ++S[Col[U[D[j]]=D[U[j]]=j]];
         L[R[c]] = R[L[c]] = c;
     }
-    //dÎªµÝ¹éÉî¶È
+    //dä¸ºé€’å½’æ·±åº¦
     bool Dance(int d)
     {
         if(R[0] == 0)
