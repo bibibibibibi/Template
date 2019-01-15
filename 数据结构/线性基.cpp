@@ -9,6 +9,7 @@ struct LinearBasis
 	{
 		memset(v,0,sizeof(v));
 	}
+	//上三角矩阵
 	void add(Tp x)
 	{
 		for(int i=MAXL;i>=0;i--)
@@ -26,13 +27,12 @@ struct LinearBasis
 	}
 	Tp queryMax()
 	{
-		ll x=0;
+		Tp x=0;
 		for(int i=MAXL;i>=0;i--)
-			if((x^v[i])>x)
-				x^=v[i];
+			x=max(x,x^v[i]);
 		return x;
 	}
-	//第k大预处理
+	//第k大预处理，化成类对角矩阵形式
 	void init(int _n)//n加入的数的个数
 	{
 		n=_n;sz=0;
@@ -46,7 +46,7 @@ struct LinearBasis
 	}
 	Tp query(ll k)
 	{
-		if(sz!=n)
+		if(sz!=n)//sz!=n 说明可以组合出0
 			k--;
 		if(k>(1ll<<sz)-1)
 			return -1;
@@ -56,4 +56,4 @@ struct LinearBasis
 				ans^=v[i];
 		return ans;
 	}
-}lb;
+};
