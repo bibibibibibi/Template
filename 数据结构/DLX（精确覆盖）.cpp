@@ -1,12 +1,12 @@
-const int maxnode = 100010;
-const int MaxM = 1010;
-const int MaxN = 1010;
+const int maxnode=100010;
+const int MaxM=1010;
+const int MaxN=1010;
 struct DLX
 {
     int n,m,size;
     int U[maxnode],D[maxnode],R[maxnode],L[maxnode],Row[maxnode],Col[maxnode];
-    int H[MaxN], S[MaxM];
-    int ansd, ans[MaxN];
+    int H[MaxN],S[MaxM];
+    int ansd,ans[MaxN];
     void init(int _n,int _m)
     {
         n = _n;
