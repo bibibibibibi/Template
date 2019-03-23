@@ -44,7 +44,7 @@ namespace DSU
     int fa[MAXN];
     void init(int n)
     {
-        for(int i=1;i<=n;i++)fa[i]=i;
+        for(int i=1;i<=n;i++) fa[i]=i;
     }
     int Find(int x)
     {
@@ -53,7 +53,7 @@ namespace DSU
     bool Union(int x,int y)
     {
         x=Find(x),y=Find(y);
-        if(x==y)return 0;
+        if(x==y) return 0;
         return fa[x]=y,1;
     }
 }
