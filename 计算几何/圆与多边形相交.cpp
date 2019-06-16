@@ -1,3 +1,4 @@
+//别用了，假板子，有空我找个新的
 #include<cstdio>
 #include<cmath>
 #include<algorithm>

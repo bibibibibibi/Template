@@ -5,7 +5,7 @@ struct Line
 	Line(){}
 	Line(Point _s,Point _e):s(_s),e(_e){}
     //两直线相交求交点
-    //第一个值为0表示直线重合，为1表示平行，为0表示相交,为2是相交
+    //第一个值为0表示直线重合，为1表示平行,为2是相交
     //只有第一个值为2时，交点才有意义
     pair<int,Point> operator &(const Line &b)const 
     { 

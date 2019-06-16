@@ -1,3 +1,4 @@
+// a^x = b (mod n) n 是素数和不是素数都可以
 const int M=76543;
 int hs[M],head[M],next[M],id[M],top;
 void insert(int x,int y)
