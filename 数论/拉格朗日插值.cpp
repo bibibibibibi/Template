@@ -1,12 +1,12 @@
-// ×¢Òâmod£¬Ê¹ÓÃÇ°Ğëµ÷ÓÃÒ»´Î polysum::init(int M);
-// ¶ÔÓÚk½×¶àÏîÊ½a£¬ÊäÈëk+1¸öµã a[0],a[1]...a[k]
+// æ³¨æ„modï¼Œä½¿ç”¨å‰é¡»è°ƒç”¨ä¸€æ¬¡ polysum::init(int M);
+// å¯¹äºké˜¶å¤šé¡¹å¼aï¼Œè¾“å…¥k+1ä¸ªç‚¹ a[0],a[1]...a[k]
 namespace polysum
 {
 	#define rep(i,a,n) for(int i=a;i<n;i++)
 	#define per(i,a,n) for(int i=n-1;i>=a;i--)
 	typedef long long ll;
-	const ll mod=1e9+7;//È¡Ä£Öµ
-	const int D=1010000;//×î¸ß´ÎÏŞÖÆ
+	const ll mod=1e9+7;//å–æ¨¡å€¼
+	const int D=1010000;//æœ€é«˜æ¬¡é™åˆ¶
 	ll powmod(ll a,ll b){ll res=1;a%=mod;assert(b >= 0);for(;b;b>>=1){if(b&1)res=res*a%mod;a=a*a%mod;}return res;}
 
 	ll a[D],f[D],g[D],p[D],p1[D],p2[D],b[D],h[D][2],C[D];
@@ -34,12 +34,12 @@ namespace polysum
 		return ans;
 	}
 	void init(int M) 
-	{	//M£º×î¸ß´Î
+	{	//Mï¼šæœ€é«˜æ¬¡
 		f[0]=f[1]=g[0]=g[1]=1;
 		rep(i,2,M+5) f[i]=f[i-1]*i%mod;
 		g[M+4]=powmod(f[M+4],mod-2);
 		per(i,1,M+4) g[i]=g[i+1]*(i+1)%mod;
-    }
+	}
 	ll polysum(ll n,ll *arr,ll m)
 	{	// a[0].. a[m] \sum_{i=0}^{n-1} a[i]
 		for(int i=0;i<=m;i++)
@@ -47,7 +47,7 @@ namespace polysum
 		a[m+1]=calcn(m,a,m+1);
 		rep(i,1,m+2) a[i]=(a[i-1]+a[i])%mod;
 		return calcn(m+1,a,n-1);
-    }
+	}
 	ll qpolysum(ll R,ll n,ll *a,ll m) 
 	{	// a[0].. a[m] \sum_{i=0}^{n-1} a[i]*R^i 
 		if(R==1) return polysum(n,a,m);
