@@ -8,7 +8,7 @@ void FMT(int *A,int o)
 for(int i=0;i<=n;i++) FMT(g[i],1);
 for(int i=0;i<=n;i++) FMT(f[i],1);
 //h[i][k] 含有i个元素的集合k的结果i==__builtin_popcount(k)时状态有效,f和g同理
-for(int i=1;i<=n;i++)
+for(int i=0;i<=n;i++)
 {
 	for(int j=0;j<=i;j++)
 		for(int k=0;k<ST;k++)
