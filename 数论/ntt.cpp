@@ -55,7 +55,7 @@ namespace NTT
                 y[i]=y[i]*t%MOD;
         }
     }
-    void cal(ll x1[],ll x2[],ll tot)
+    void cal(ll x1[],ll x2[],int tot)
     {
         int len=1;
         while(len<2*tot)len<<=1;
