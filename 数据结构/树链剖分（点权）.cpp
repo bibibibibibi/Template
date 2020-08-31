@@ -37,6 +37,7 @@ namespace Tree_chain
 	}
 	void build_tree(int o,int L,int R)
 	{
+		addv[o]=0;
 		if(L==R)
 			sumv[o]=plc[L];
 		else 
@@ -79,7 +80,7 @@ namespace Tree_chain
 	int siz[MAXN],dep[MAXN],hson[MAXN];
 	void dfs_1(int x,int fa=-1,int depth=0) 
 	{
-		siz[x]=1;dep[x]=depth;anc[x][0]=fa;
+		siz[x]=1;dep[x]=depth;anc[x][0]=fa;hson[x]=0;
 		int max_siz=0;
 		for(int i=head[x];~i;i=E[i].nxt)
 		{
@@ -146,7 +147,7 @@ namespace Tree_chain
 	{
 		if(x==now_rt)
 			return query(1,1,n,1,n);
-		else 
+		else
 		{
 			if(is_anc(x,now_rt)) 
 			{
@@ -179,7 +180,7 @@ namespace Tree_chain
 	}
 	ll query_chain(int u,int v)
 	{
-		if(top[u]==top[v]) 
+		if(top[u]==top[v])
 		{
 			int l=dfn[u],r=dfn[v];
 			if(l>r) std::swap(l, r);

@@ -13,32 +13,32 @@ struct RMQ
 {
     int n;
     int len[MAXN];
-    Tp mx[MAXN][21];
-    Tp mi[MAXN][21];
+    Tp mx[21][MAXN];
+    Tp mi[21][MAXN];
     void build_rmq()
     {
         for(int j=1;(1<<j)<=n;j++)
             for(int i=1;i+(1<<j)-1<=n;i++)
             {
-                mx[i][j]=max(mx[i][j-1],mx[i+(1<<(j-1))][j-1]);
-                mi[i][j]=min(mi[i][j-1],mi[i+(1<<(j-1))][j-1]);
+                mx[j][i]=max(mx[j-1][i],mx[j-1][i+(1<<(j-1))]);
+                mi[j][i]=min(mi[j-1][i],mi[j-1][i+(1<<(j-1))]);
             }
     }
     int QueryMax(int L,int R)
     {
         int k=len[R-L+1];
-        return max(mx[L][k],mx[R-(1<<k)+1][k]);
+        return max(mx[k][L],mx[k][R-(1<<k)+1]);
     }
     int QueryMin(int L,int R)
     {
         int k=len[R-L+1];
-        return min(mi[L][k],mi[R-(1<<k)+1][k]);
+        return min(mi[k][L],mi[k][R-(1<<k)+1]);
     }
     void init(Tp *a,int sz)
     {
         n=sz;
         for(int i=1;i<=n;i++) 
-            mx[i][0]=mi[i][0]=a[i];
+            mx[0][i]=mi[0][i]=a[i];
         build_rmq();
         for(int i=0;i<=n;i++)
             len[i]=(i==0?-1:len[i>>1]+1);
