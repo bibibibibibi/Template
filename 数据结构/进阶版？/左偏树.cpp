@@ -59,7 +59,7 @@ struct Heap
         int L=h[x].l,R=h[x].r;
         h[L].rt=L;h[R].rt=R;
         //todo增加节点回收机制
-        //h[x].reset();
+        //h[x].reset();没有回收机制暂时先不reset
         return merge(L,R);
     }
 
