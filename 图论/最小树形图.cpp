@@ -1,7 +1,4 @@
-#include<cstdio>
-#include<cstring>
-#include<iostream>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
 /*
  * ×îĞ¡Ê÷ĞÎÍ¼
