@@ -8,6 +8,7 @@ namespace SAM
 		int next[CHAR];
 	}st[MAXN*2];
 	int sz,last;
+	int endpos[MAXN*2];
 	void init()
 	{
 		st[0].len=0;
@@ -21,6 +22,7 @@ namespace SAM
 		int cur=sz++;
 		st[cur].len=st[last].len+1;
 		st[cur].firstpos=st[cur].len;//firstpos从1开始
+		endpos[cur]=1;
 		int p=last;
 		while(p!=-1&&!st[p].next[c])
 		{
@@ -50,5 +52,20 @@ namespace SAM
 			}
 		}
 		last=cur;
+	}
+	vector<int> E[MAXN*2];
+	void dfs(int now) //计算endpos的大小
+	{
+		for(int v:E[now])
+		{
+			dfs(v);
+			endpos[now]+=endpos[v];
+		}
+	}
+	void build_tree()
+	{
+		for(int i=1;i<sz;i++)
+			E[st[i].link].push_back(i);
+		dfs(0);
 	}
 }
