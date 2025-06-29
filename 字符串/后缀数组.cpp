@@ -22,12 +22,14 @@ namespace SA
 		{
 			for(int i=n-k+1;i<=n;i++) y[++j]=i;
 			for(int i=1;i<=n;i++)
-				if(sa[i]>k)y[++j]=sa[i]-k;
+				if(sa[i]>k)
+					y[++j]=sa[i]-k;
 			for(int i=1;i<=m;i++) c[i]=0;
 			for(int i=1;i<=n;i++) c[x[i]]++;
 			for(int i=2;i<=m;i++) c[i]+=c[i-1];
 			for(int i=n;i;i--) sa[c[x[y[i]]]--]=y[i];
-			swap(x,y);x[sa[1]]=j=1;
+			swap(x,y);
+			x[sa[1]]=j=1;
 			for(int i=2;i<=n;x[sa[i++]]=++j)
 				if(y[sa[i]]==y[sa[i-1]]&&y[sa[i]+k]==y[sa[i-1]+k])
 					j--;
