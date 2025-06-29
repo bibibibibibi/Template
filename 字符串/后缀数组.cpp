@@ -15,9 +15,9 @@ namespace SA
 	int c[MAXN],x[MAXN],y[MAXN];
 	void da(int n,int s[],int m=26)
 	{
-		for(int i=1;i<=n;i++)c[x[i]=s[i]]++;
-		for(int i=2;i<=m;i++)c[i]+=c[i-1];
-		for(int i=n;i;i--)sa[c[x[i]]--]=i;
+		for(int i=1;i<=n;i++) c[x[i]=s[i]]++;
+		for(int i=2;i<=m;i++) c[i]+=c[i-1];
+		for(int i=n;i;i--) sa[c[x[i]]--]=i;
 		for(int k=1,j;j=0,k<n;k<<=1,m=j)
 		{
 			for(int i=n-k+1;i<=n;i++) y[++j]=i;
@@ -38,7 +38,7 @@ namespace SA
 		for(int i=1;i<=n;i++) rk[sa[i]]=i;
 		for(int i=1,j,k=0;i<=n;i++)
 		{
-			if(k)k--;
+			if(k) k--;
 			j=sa[rk[i]-1];
 			while(s[i+k]==s[j+k]) k++;
 			h[rk[i]]=k;
