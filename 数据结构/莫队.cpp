@@ -32,7 +32,7 @@ void Delete(int x)
 }
 int main()
 {
-    n=read(),m=read(),m=read();
+    n=read(),m=read();
     int sz=ceil(sqrt(1.0*n));
     for(int i=1;i<=n;i++)
     {
