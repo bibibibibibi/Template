@@ -1,5 +1,5 @@
- //ÁÚ½Ó±í°æ±¾ 
-//µ«ÊÇÈ¨Öµ±ØĞëÎª·Ç¸º 
+//é‚»æ¥è¡¨ç‰ˆæœ¬ 
+//ä½†æ˜¯æƒå€¼å¿…é¡»ä¸ºéè´Ÿ 
 typedef long long ll;
 namespace Dij
 {
@@ -29,7 +29,7 @@ namespace Dij
 		tot=0;
 		memset(head,-1,sizeof(head));
 	}
-	void Dijkstra(int start)
+	void calc(int start)
 	{
 		memset(vis,false,sizeof(vis));
 		memset(dist,0x3f,sizeof(dist));
