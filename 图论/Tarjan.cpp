@@ -4,17 +4,15 @@
  */ 
 namespace Tarjan
 {
-	const int MAXN=10010;//点数
-	const int MAXM=20010;//边数
+	const int MAXN=2e5+5;//点数
+	const int MAXM=4e5+5;//边数
 	struct Edge
 	{
 		int to,nxt;
 	}edge[MAXM];
-	int head[MAXN],tot;
-	int Low[MAXN],DFN[MAXN],Stack[MAXN],Belong[MAXN];//Belong数组的值是1~scc
-	int Index,top;
-	int scc;//强连通分量的个数
-	bool Instack[MAXN]; 
+	int head[MAXN],low[MAXN],dfn[MAXN],st[MAXN],be[MAXN];//be是belong数组值是1~scc
+	int tot,idx,top,scc; //scc 强连通分量的个数
+	bool vis[MAXN]; 
 	int num[MAXN];//各个强连通分量包含点的个数，数组编号1~scc 
 	//num数组不一定需要，结合实际情况
 	void addedge(int u,int v)
@@ -24,47 +22,46 @@ namespace Tarjan
 	void Tarjan(int u)
 	{
 		int v;
-		Low[u]=DFN[u]=++Index;
-		Stack[top++]=u;
-		Instack[u]=true;
+		low[u]=dfn[u]=++idx;
+		st[top++]=u;
+		vis[u]=true;
 		for(int i=head[u];~i;i=edge[i].nxt)
 		{
 			v=edge[i].to;
-			if(!DFN[v])
+			// 求双联通的话在这里判断下是否是来的时候的边
+			if(!dfn[v])
 			{
 				Tarjan(v);
-				if(Low[u]>Low[v])Low[u]=Low[v];
+				if(low[u]>low[v])low[u]=low[v];
 			}
-			else if(Instack[v]&&Low[u]>DFN[v])
-				Low[u]=DFN[v];
+			else if(vis[v]&&low[u]>dfn[v])
+				low[u]=dfn[v];
 		}
-		if(Low[u]==DFN[u])
+		if(low[u]==dfn[u])
 		{
 			scc++;
 			do
 			{
-				v=Stack[--top];
-				Instack[v]=false;
-				Belong[v]=scc;
+				v=st[--top];
+				vis[v]=false;
+				be[v]=scc;
 				num[scc]++;
 			}
 			while(v!=u);
 		}
 	}
-	void solve(int N)
+	void solve(int n)
 	{
-		for(int i=1;i<=N;i++)
-			if(!DFN[i])
+		for(int i=1;i<=n;i++)
+			if(!dfn[i])
 				Tarjan(i);
 	}
-	void init()
+	void init(int n)
 	{
-		tot=0;
-		Index=scc=top=0;
-		memset(head,-1,sizeof(head));
-		memset(DFN,0,sizeof(DFN));
-		memset(Instack,false,sizeof(Instack));
-		memset(num,0,sizeof(num));
+		idx=scc=top=tot=0;
+		fill(head+1,head+1+n,0);
+		fill(dfn+1,dfn+1+n,0);
+		fill(vis+1,vis+1+n,0);
+		fill(num+1,num+1+n,0);
 	}
 }
-
