@@ -1,22 +1,22 @@
 /* 
- * Tarjan算法 
- * 复杂度O(N+M) 
+ * Tarjan绠楁硶 
+ * 澶嶆潅搴(N+M) 
  */ 
 namespace Tarjan
 {
-	const int MAXN=20010;//点数
-	const int MAXM=50010;//边数
+	const int MAXN=10010;//鐐规暟
+	const int MAXM=20010;//杈规暟
 	struct Edge
 	{
 		int to,nxt;
 	}edge[MAXM];
 	int head[MAXN],tot;
-	int Low[MAXN],DFN[MAXN],Stack[MAXN],Belong[MAXN];//Belong数组的值是1~scc
+	int Low[MAXN],DFN[MAXN],Stack[MAXN],Belong[MAXN];//Belong鏁扮粍鐨勫�兼槸1~scc
 	int Index,top;
-	int scc;//强连通分量的个数
+	int scc;//寮鸿繛閫氬垎閲忕殑涓暟
 	bool Instack[MAXN]; 
-	int num[MAXN];//各个强连通分量包含点的个数，数组编号1~scc 
-	//num数组不一定需要，结合实际情况
+	int num[MAXN];//鍚勪釜寮鸿繛閫氬垎閲忓寘鍚偣鐨勪釜鏁帮紝鏁扮粍缂栧彿1~scc 
+	//num鏁扮粍涓嶄竴瀹氶渶瑕侊紝缁撳悎瀹為檯鎯呭喌
 	void addedge(int u,int v)
 	{
 		edge[tot].to=v;edge[tot].nxt=head[u];head[u]=tot++;
