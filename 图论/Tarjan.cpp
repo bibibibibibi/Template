@@ -53,10 +53,7 @@ namespace Tarjan
 	}
 	void solve(int N)
 	{
-		memset(DFN,0,sizeof(DFN));
-		memset(Instack,false,sizeof(Instack));
-		memset(num,0,sizeof(num));
-		Index=scc=top=0;
+		
 		for(int i=1;i<=N;i++)
 			if(!DFN[i])
 				Tarjan(i);
@@ -64,7 +61,11 @@ namespace Tarjan
 	void init()
 	{
 		tot=0;
+		Index=scc=top=0;
 		memset(head,-1,sizeof(head));
+		memset(DFN,0,sizeof(DFN));
+		memset(Instack,false,sizeof(Instack));
+		memset(num,0,sizeof(num));
 	}
 }
 
