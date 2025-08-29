@@ -53,7 +53,6 @@ namespace Tarjan
 	}
 	void solve(int N)
 	{
-		
 		for(int i=1;i<=N;i++)
 			if(!DFN[i])
 				Tarjan(i);
