@@ -58,6 +58,8 @@ struct Trie
 					Q.push(next[now][i]);
 				}
 		}
+		//计数相同的出现次数，预处理
+		//end[now]+=end[fail[now]]; 
 	}
 	int query(char buf[])
 	{
@@ -70,6 +72,7 @@ struct Trie
 			int temp=now;
 			while(temp!=root)
 			{
+				// 每个字符串只算一次
 				res+=end[temp];
 				end[temp]=0;
 				temp=fail[temp];
