@@ -58,7 +58,7 @@ struct Trie
 					Q.push(next[now][i]);
 				}
 		}
-		//计数相同的出现次数，预处理
+		//看当前节点是否包含某个end
 		//end[now]+=end[fail[now]]; 
 	}
 	int query(char buf[])
