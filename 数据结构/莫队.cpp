@@ -46,7 +46,7 @@ int main()
         Q[i].id=i;
     }
     sort(Q+1,Q+1+m,cmp);
-    int L=1,R=0;ans=0;
+    int L=1,R=0,ans=0;
     for(int i=1;i<=m;i++)
     {
         int id=Q[i].id;
