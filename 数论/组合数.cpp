@@ -15,14 +15,14 @@ ll C(ll n,ll m)
 void init()
 {
     fac[0]=1;
-    for(int i=1;i<MAXN;i++)//½×³Ë´ò±í 
+    for(int i=1;i<MAXN;i++)//é˜¶ä¹˜æ‰“è¡¨ 
         fac[i]=fac[i-1]*i%MOD;
-    inv[0]=1;inv[MAXN-1]=qpow(fac[MAXN-1],MOD-2);//·ÑÂíĞ¡¶¨ÀíÇóÄæÔª 
+    inv[0]=1;inv[MAXN-1]=qpow(fac[MAXN-1],MOD-2);//è´¹é©¬å°å®šç†æ±‚é€†å…ƒ 
     for(int i=MAXN-2;i>=1;i--)
         inv[i]=inv[i+1]*(i+1)%MOD;
 }
 
-//Ô¤´¦Àí°æ±¾
+//é¢„å¤„ç†ç‰ˆæœ¬
 int fac[MAXN],C[MAXN][MAXN];
 void init()
 {
@@ -35,11 +35,11 @@ void init()
     {
         C[i][0]=1;
         for(int j=1;j<=i;j++)
-            C[i][j]=(C[i-1][j]+C[i-1][j-1])%MOD
+            C[i][j]=(C[i-1][j]+C[i-1][j-1])%MOD;
     }
 }
 
-//ÇóÄæÔª
+//æ±‚é€†å…ƒ
 ll _inv(int x)
 {
     if(x==1) return 1;
