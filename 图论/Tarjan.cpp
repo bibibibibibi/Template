@@ -59,7 +59,7 @@ namespace Tarjan
 	void init(int n)
 	{
 		idx=scc=top=tot=0;
-		fill(head+1,head+1+n,0);
+		fill(head+1,head+1+n,-1);
 		fill(dfn+1,dfn+1+n,0);
 		fill(vis+1,vis+1+n,0);
 		fill(num+1,num+1+n,0);
