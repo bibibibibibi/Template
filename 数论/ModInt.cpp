@@ -287,4 +287,5 @@ private:
  
 template<u32 Id>
 Barrett DynModInt<Id>::bt = 998244353;
- 
+
+// using Z = ModInt<998244353>;
