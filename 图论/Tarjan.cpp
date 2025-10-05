@@ -2,6 +2,7 @@
  * Tarjan算法 
  * 复杂度O(N+M) 
  */ 
+// 有向图版本
 namespace Tarjan
 {
 	const int MAXN=2e5+5;//点数
@@ -28,7 +29,6 @@ namespace Tarjan
 		for(int i=head[u];~i;i=edge[i].nxt)
 		{
 			v=edge[i].to;
-			// 求双联通的话在这里判断下是否是来的时候的边
 			if(!dfn[v])
 			{
 				Tarjan(v);
