@@ -2,7 +2,7 @@
  * Tarjan算法 
  * 复杂度O(N+M) 
  */ 
-// 有向图版本
+// 有向图版本强联通版本
 namespace Tarjan
 {
 	const int MAXN=2e5+5;//点数
