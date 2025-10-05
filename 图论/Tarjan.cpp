@@ -65,3 +65,60 @@ namespace Tarjan
 		fill(num+1,num+1+n,0);
 	}
 }
+
+// 无向图双联通分量
+struct Tarjan
+{
+	vector<int> E[MAXN],scc[MAXN];
+	int dfn[MAXN],low[MAXN],st[MAXN],p[MAXN],top,idx,cnt;
+	void init(int n)
+	{
+		idx=0;top=0;cnt=0;
+		for(int i=1;i<=n;i++)
+		{
+			E[i].clear();
+			scc[i].clear();
+			dfn[i]=0;
+			low[i]=0;
+		}
+	}
+	void addedge(int u,int v)
+	{
+		E[u].push_back(v);
+		E[v].push_back(u);
+	}
+	void dfs(int u,int f=0)
+	{
+		dfn[u]=low[u]=++idx;
+		st[++top]=u;
+		for(auto v:E[u])
+		{
+			if(!dfn[v])
+			{
+				dfs(v,u);
+				low[u]=min(low[u],low[v]);
+			}
+			else if(v!=f)
+			{
+				low[u]=min(low[u],dfn[v]);
+			}
+		}
+		if(dfn[u]==low[u])
+		{
+			cnt++;
+			int x=0;
+			while(x!=u)
+			{
+				x=st[top--];
+				p[x]=cnt;
+				scc[cnt].push_back(x);
+			}
+		}
+	}
+	void solve(int n)
+	{
+		for(int i=1;i<=n;i++)
+			if(!dfn[i])
+				dfs(i);
+	}
+}tar;
