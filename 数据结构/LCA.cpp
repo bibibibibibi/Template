@@ -1,7 +1,7 @@
-namespace lca
-{
-	const int MAXN=1e5+5;
-	const int DEG=20;
+const int MAXN=3e5+5;
+const int DEG=20;
+struct LCA
+{	
 	struct Edge 
 	{
 		int v,nxt; 
@@ -13,17 +13,17 @@ namespace lca
 		E[tot].nxt=head[u];
 		head[u]=tot++;
 	}
-	void init()
+	void init(int n)
 	{
 		tot=0;
-		memset(head,-1,sizeof(head));
+		fill(head,head+1+n,-1);
 	}
 	int fa[MAXN][DEG];//fa[i][j]表示结点i的第2^j个祖先 
-	int deg[MAXN];//深度数组
-	void BFS(int root)
+	int dep[MAXN];//深度数组
+	void bfs(int root)
 	{
 		queue<int> Q;
-		deg[root]=0;
+		dep[root]=0;
 		fa[root][0]=root;
 		Q.push(root);
 		while(!Q.empty())
@@ -36,16 +36,16 @@ namespace lca
 			{
 				int v=E[i].v;
 				if(v==fa[tmp][0])continue;
-				deg[v]=deg[tmp]+1;
+				dep[v]=dep[tmp]+1;
 				fa[v][0]=tmp;
 				Q.push(v);
 			}
 		}
 	}
-	int LCA(int u,int v) 
+	int lca(int u,int v) 
 	{
-		if(deg[u]>deg[v])swap(u,v);
-		int hu=deg[u],hv=deg[v];
+		if(dep[u]>dep[v])swap(u,v);
+		int hu=dep[u],hv=dep[v];
 		int tu=u,tv=v;
 		for(int det=hv-hu,i=0;det;det>>=1,i++)
 			if(det&1)
@@ -60,4 +60,4 @@ namespace lca
 		}
 		return fa[tu][0]; 
 	}
-}
+}lca;
